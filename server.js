@@ -51,6 +51,8 @@ app.use(express.static("public"));
 const logoutRoutes = require("./routes/logout");
 const loginRoutes = require("./routes/login");
 const registerRoutes = require("./routes/register");
+const mapRoutes = require("./routes/createmap");
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 
@@ -60,6 +62,7 @@ const registerRoutes = require("./routes/register");
 app.use("/logout", logoutRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/register", registerRoutes(db));
+app.use("/createmap", mapRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -69,6 +72,7 @@ app.use("/register", registerRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
 
 
 app.listen(PORT, () => {
