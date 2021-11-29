@@ -24,7 +24,6 @@ module.exports = (db) => {
 
   //POST /register/
   router.post("/", (req, res) => {
-    console.log(" req.body-------" ,req.body)
     const user = req.body;
     helpers.getUserWithEmail(user.email)
     .then(result => {

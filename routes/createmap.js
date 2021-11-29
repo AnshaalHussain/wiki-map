@@ -3,7 +3,6 @@ const express          = require('express');
 const router           = express.Router();
 const helpers = require('../lib/helpers');
 const cookieSession    = require('cookie-session');
-const bcrypt = require('bcrypt');
 const bodyparser = require('body-parser')
 
 
@@ -21,24 +20,24 @@ module.exports = (db) => {
   });
 
 
-  // POST /login/
- // Logs a user in after authenticating email and password.
-//  router.post("/", (req,res) => {
-//    const email = req.body.email;
-//    const password = req.body.password;
+  //POST /createmap/
+  router.post("/", (req, res) => {
+    //console.log(" req.body-------" ,req.body)
+    const user = req.body;
+    const userId = req.session.userId;
+    if(!userId) {
+      alert("log in before creating a map");
+      res.redirect("/")
+    }
+    helpers.createNewMap(user)
+      .then(user => {
+        res.redirect("/")
+      })
+      .catch(error => console.log(error));
 
-//   helpers.getUserWithEmail(email)
-//     .then(user => {
-//       if (user  && bcrypt.compareSync(password, user.password)) {
-//         req.session.userId = user.id;
-//         res.redirect("/");
-//       } else {
-//         console.log("error when logging in")
-//         res.redirect("/");
-//       }
-//     })
-//     .catch(err => res.status(404).send(err));
-//   });
+
+
+  })
 
   return router;
 };
