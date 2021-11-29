@@ -9,6 +9,9 @@ const app              = express();
 const morgan           = require("morgan");
 const bcrypt           = require('bcryptjs');
 const cookieSession    = require('cookie-session');
+const bodyparser       = require('body-parser')
+
+
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -21,11 +24,12 @@ db.connect();
 app.use(morgan("dev"));
 app.use(cookieSession({
   name: 'session',
-  keys: [proccess.env.COOKIE_KEY]
+  keys: [process.env.COOKIE_KEY]
 }));
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyparser.json());
 
 app.use(
   "/styles",
@@ -43,15 +47,17 @@ app.use(express.static("public"));
 
 //const usersRoutes = require("./routes/users");
 //const widgetsRoutes = require("./routes/widgets");
+
+const logoutRoutes = require("./routes/logout");
 const loginRoutes = require("./routes/login");
 const registerRoutes = require("./routes/register");
-
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 
 
 // app.use("/api/users", usersRoutes(db));
 //app.use("/api/widgets", widgetsRoutes(db));
+app.use("/logout", logoutRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/register", registerRoutes(db));
 // Note: mount other resources here, using the same pattern above
@@ -63,6 +69,7 @@ app.use("/register", registerRoutes(db));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
