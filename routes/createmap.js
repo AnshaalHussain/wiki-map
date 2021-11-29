@@ -20,6 +20,7 @@ module.exports = (db) => {
     res.render("createmap");
   });
 
+
   // POST /login/
  // Logs a user in after authenticating email and password.
 //  router.post("/", (req,res) => {
@@ -38,6 +39,7 @@ module.exports = (db) => {
 //     })
 //     .catch(err => res.status(404).send(err));
 //   });
+
   return router;
 };
 
