@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 // Web server config
-const PORT             = process.env.PORT || 8080;
+const PORT             = process.env.PORT || 8089;
 const sassMiddleware   = require("./lib/sass-middleware");
 const express          = require("express");
 const app              = express();
@@ -10,8 +10,6 @@ const morgan           = require("morgan");
 const bcrypt           = require('bcryptjs');
 const cookieSession    = require('cookie-session');
 const bodyparser       = require('body-parser')
-
-
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -73,7 +71,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-
+// maps route- needs to be relocated to a routing file
+app.get("/map", (req, res) => {
+  res.render("map");
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
