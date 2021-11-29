@@ -1,5 +1,6 @@
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -14,4 +15,14 @@ body {
     rgba(163, 208, 219, 1) 74%,
     rgba(163, 208, 219, 1) 100%
   );
+  .form {
+    width: 50%;
+    text-align: center;
+  }
+  .btn {
+    background-color: #00A6CB;
+    color: white;
+    border-radius: 15px;
+    border: none;
+  }
 }
