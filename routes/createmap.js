@@ -22,7 +22,7 @@ module.exports = (db) => {
 
   //POST /createmap/
   router.post("/", (req, res) => {
-    //console.log(" req.body-------" ,req.body)
+    console.log(" req.body-------" ,req.body)
     const user = req.body;
     const userId = req.session.userId;
     if(!userId) {
