@@ -52,6 +52,11 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// maps route- needs to be relocated to a routing file
+app.get("/map", (req, res) => {
+  res.render("map");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
