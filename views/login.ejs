@@ -13,9 +13,13 @@
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <%- include('partials/head'); %>
 </head>
 
-<body class="background">
+<body >
+  <%- include('partials/header'); %>
+</body>
+ <main>
   <form class="form" method="POST" action="/login">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
@@ -29,6 +33,6 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-
-</body>
+ </main>
+</html>
 

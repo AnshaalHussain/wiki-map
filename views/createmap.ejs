@@ -10,24 +10,47 @@
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
 
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="scripts/map.js"></script>
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <%- include('partials/head'); %>
 </head>
 <body >
-  <h3> CREATE A NEW MAP</h3>
-  <form class= "form" method="POST" action="/createmap">
-    <div class="form-group">
-      <label for="exampleInputName1">Title</label>
-      <input name="title" type="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter title">
+  <%- include('partials/header'); %>
+  </body>
+  <main class="map">
+    <div class="container map_form">
+      <div class="row">
+        <div class="col map_form">
+          <div id="map" style="height: 400px; width: 800px">
+
+          </div>
+        </div>
+      </div>
     </div>
+    <h3> CREATE A NEW MAP</h3>
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Description</label>
-      <input name="description" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter description">
-    </div>
+    <form class= "form" method="POST" action="/createmap">
+      <div class="form-group">
+        <label for="exampleInputName1">Title</label>
+        <input name="title" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter title">
+      </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</body>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Description</label>
+        <input name="description" type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter description">
+      </div>
 
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</main>
+
+</html>
