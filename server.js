@@ -50,6 +50,7 @@ const logoutRoutes = require("./routes/logout");
 const loginRoutes = require("./routes/login");
 const registerRoutes = require("./routes/register");
 const mapRoutes = require("./routes/createmap");
+const mapPageRoutes = require("./routes/map");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -61,6 +62,7 @@ app.use("/logout", logoutRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/createmap", mapRoutes(db));
+app.use("/map", mapPageRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -69,11 +71,6 @@ app.use("/createmap", mapRoutes(db));
 
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-// maps route- needs to be relocated to a routing file
-app.get("/map", (req, res) => {
-  res.render("map");
 });
 
 app.listen(PORT, () => {
