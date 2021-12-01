@@ -46,6 +46,8 @@ const addNewMap = function() {
     .on('select', function(e) {
     // Remove the marker layer on search, only center the location
     console.log(e);
+    $("input#long").val(e.latlng.lng);
+    $("input#lat").val(e.latlng.lat);
     map.removeLayer(e.target.markers[0]);
   });
 
