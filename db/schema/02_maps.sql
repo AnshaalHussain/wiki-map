@@ -4,6 +4,7 @@ CREATE TABLE maps (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
+  image_url VARCHAR(255),
   favourite BOOLEAN DEFAULT FALSE,
   center_latitude DOUBLE PRECISION,
   center_longitude DOUBLE PRECISION,

@@ -1,6 +1,6 @@
 const express          = require('express');
 const router           = express.Router();
-const helpers = require('../lib/helpers');
+const helpers = require('../lib/user_helpers');
 const cookieSession    = require('cookie-session');
 const bcrypt = require('bcrypt');
 const bodyparser = require('body-parser')

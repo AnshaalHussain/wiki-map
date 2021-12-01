@@ -1,7 +1,7 @@
 
 const express          = require('express');
 const router           = express.Router();
-const helpers          = require('../lib/helpers');
+const helpers          = require('../lib/map_helpers');
 const cookieSession    = require('cookie-session');
 const bodyparser       = require('body-parser')
 
@@ -23,13 +23,13 @@ module.exports = (db) => {
   //POST /createmap/
   router.post("/", (req, res) => {
     console.log(" req.body-------" ,req.body)
-    const user = req.body;
+    const map = req.body;
     const userId = req.session.userId;
     if(!userId) {
       alert("log in before creating a map");
       res.redirect("/")
     }
-    helpers.createNewMap(user)
+    helpers.createNewMap(map)
       .then(user => {
         res.redirect("/")
       })
