@@ -26,7 +26,7 @@
         <% for (let i=0; i<maps.length; i++) { %>
 
          <div class="add_map" class="col">
-          <a href="#">
+          <a href="/map/<%= maps[i].id %>">
             <div class="card" style="width: 18rem;">
               <img src="<%= maps[i].image_url %>" alt="...">
               <div class="card-body">
