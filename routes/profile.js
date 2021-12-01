@@ -5,10 +5,13 @@ module.exports = (db) => {
   //GET profile
   router.get("/", (req, res) => {
 
-    db.query(`SELECT * FROM users;`)
+    db.query(`
+    SELECT maps.*, users.*
+    FROM maps
+    JOIN users ON users.id = user_id;`)
     .then(data => {
       //res.json({ users });
-      //console.log("user data", data.rows)
+      console.log("user data", data.rows)
       const user = data.rows[0]
 
       res.render("profile", user)
