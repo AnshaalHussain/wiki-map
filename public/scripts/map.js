@@ -7,8 +7,10 @@ $( document ).ready(function() {
       id: 'mapbox/streets-v11',
       tileSize: 512,
       zoomOffset: -1,
-      accessToken: process.env.MAP_API_TOKEN
+      accessToken: 'pk.eyJ1IjoiYWtoYW40NDUiLCJhIjoiY2t3azJiNTRnMW85MzJucWI3YzU3bnIxcyJ9.Hagm_QAD-JiXhHBX2maxwA'
     }).addTo(map);
+
+
 
     // Add a popup and marker to current location
     map.locate({setView: true, watch: true}) /* This will return map so you can do chaining */
