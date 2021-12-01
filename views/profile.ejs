@@ -11,10 +11,15 @@
 
   <main>
     <h4>Profile</h4>
-    <p>name: <%= name %></p>
-    <p>email: <%= email %></p>
 
     <h4>Favorited Maps</h4>
+
+    <%= console.log(users) %>
+    <% for (user of users) { %>
+    <%= user.title %>
+    <% }; %>
+
+    <h4>Contributed To:</h4>
 
   </main>
 

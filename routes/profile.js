@@ -11,10 +11,11 @@ module.exports = (db) => {
     JOIN users ON users.id = user_id;`)
     .then(data => {
       //res.json({ users });
-      console.log("user data", data.rows)
-      const user = data.rows[0]
+      //console.log("user data", data.rows)
+      const templateData = {users: data.rows}
 
-      res.render("profile", user)
+      //console.log('USERS', users)
+      res.render("profile", templateData)
 
     })
     .catch(err => {
