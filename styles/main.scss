@@ -58,7 +58,7 @@ body {
 
   }
 
-  .col {
+  .map-col {
     margin:auto;
     flex-grow: 0;
   }
@@ -72,12 +72,16 @@ body {
   }
 
   .navbar {
+
     display: flex;
     justify-content: space-between;
   }
   .navdiv {
     display: flex;
     flex-direction: row;
+  }
+  .container {
+    margin-top: 3%;
   }
 }
 
