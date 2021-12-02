@@ -4,9 +4,24 @@ $( document ).ready(function() {
   // Add a popup and marker to current location
   const map = addNewMap();
 
+  //Add marker/pointer to map
+  const markers = new L.MarkerClusterGroup();
+
+  markers.addLayer(L.marker([43.5876884,-79.774823]).bindPopup(`
+  <h6>Title</h6>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+  <img style="width: 150px;" src="https://picturesinlivingcolor.files.wordpress.com/2012/07/saturday-in-the-park-umbrella-people.jpg">
+  `));
+  markers.addLayer(L.marker([43.5952414,-79.7259424]));
+  markers.addLayer(L.marker([43.6049592,-79.7538578]));
+  // add more markers here...
+
+  map.addLayer(markers);
+
   //global variable for popup
   const popup = L.popup();
 
+  // Popup on double click for user to add a new point to map
   function onMapClick(e) {
     const lat = e.latlng.lat;
     const lng = e.latlng.lng;
