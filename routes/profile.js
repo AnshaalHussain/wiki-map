@@ -1,10 +1,11 @@
 const express = require('express');
 const router  = express.Router();
+const helpers = require('../lib/map_helpers');
 
 module.exports = (db) => {
   //GET profile
   router.get("/", (req, res) => {
-
+    const userInfo = helpers.getFavouriteMap(1)
     db.query(`
     SELECT maps.*, users.*
     FROM maps
@@ -23,8 +24,6 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err.message });
     });
-
-
 
   });
 
