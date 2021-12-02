@@ -7,6 +7,7 @@ $( document ).ready(function() {
   //global variable for popup
   const popup = L.popup();
 
+  // Popup on double click for user to add a new point to map
   function onMapClick(e) {
     const lat = e.latlng.lat;
     const lng = e.latlng.lng;
