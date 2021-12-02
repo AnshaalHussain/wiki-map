@@ -14,7 +14,7 @@ $( document ).ready(function() {
     popup
       .setLatLng(e.latlng)
       .setContent(`
-      <form method=POST>
+      <form method="POST" action="map/">
       <div class="form-floating mb-3" style="min-width: 300px;">
         <input type="hidden" name="lat" value="${lat}>
         <input type="hidden" name="lng" value="${lng}>
@@ -70,6 +70,8 @@ const addNewMap = function() {
     // Remove the marker layer on search, only center the location
     console.log(e);
     map.removeLayer(e.target.markers[0]);
+    $("input#long").val(e.latlng.lng);
+    $("input#lat").val(e.latlng.lat);
   });
 
   map.doubleClickZoom.disable();
