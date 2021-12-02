@@ -78,13 +78,20 @@ app.get("/", (req, res) => {
   })
 });
 
-app.get("/:id", (req, res) => {
-  const mapId = req.params.id
+app.get("/map/:id", (req, res) => {
+  const mapId = req.params.id;
   const map = helpers.getMap(mapId).then(result => {
-    const templateVars = { map: result, mapId}
-    res.render("map", templateVars)
+    const data = { map: result, mapId}
+    // send json instead of render
+    res.send(data);
+    // res.render("map", templateVars)
   })
 });
+
+app.get("/map/view/:id", (req,res) => {
+  const mapId = req.params.id
+  res.render("map", {mapId});
+})
 
 
 // maps route- needs to be relocated to a routing file

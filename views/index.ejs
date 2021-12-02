@@ -3,8 +3,6 @@
 
   <%- include('partials/header'); %>
   <body>
-    <%- include('partials/header'); %>
-  </body>
       <!-- Page-specific (main) content here -->
   <main>
 
@@ -14,7 +12,7 @@
         <% for (let i=0; i<maps.length; i++) { %>
 
          <div class="add_map" class="col">
-          <a href="/<%= maps[i].id %>">
+          <a href="map/view/<%= maps[i].id %>">
             <div class="card" >
               <img src="<%= maps[i].image_url %>" alt="...">
               <div class="card-body">
