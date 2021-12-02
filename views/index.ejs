@@ -3,30 +3,24 @@
 
   <%- include('partials/header'); %>
   <body>
-  </body>
-      <!-- Page-specific (main) content here -->
-  <main>
+    <main class="main">
 
+          <% for (let i=0; i<maps.length; i++) { %>
 
-    <div class="container m-3">
-      <div class="map_row row">
-        <% for (let i=0; i<maps.length; i++) { %>
-
-         <div class="add_map" class="col">
-          <a href="/<%= maps[i].id %>">
-            <div class="card" >
-              <img src="<%= maps[i].image_url %>" alt="...">
-              <div class="card-body">
-                <p class="card-text"><%=maps[i].title%></p>
+           <div class="col map-col">
+            <a href="/<%= maps[i].id %>">
+              <div class="card" >
+                <img src="<%= maps[i].image_url %>" alt="...">
+                <div class="card-body">
+                  <p class="card-text"><%=maps[i].title%></p>
+                </div>
               </div>
+              </a>
             </div>
-            </a>
-          </div>
-         <% } %>
-      </div>
-    </main>
-  </body>
+           <% } %>
 
+      </main>
+  </body>
 
   <footer><%- include('partials/footer'); %></footer>
 
