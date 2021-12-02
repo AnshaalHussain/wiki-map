@@ -10,7 +10,7 @@ const morgan           = require("morgan");
 const bcrypt           = require('bcrypt');
 const cookieSession    = require('cookie-session');
 const bodyparser       = require('body-parser')
-const helpers = require('./lib/map_helpers');
+const helpers          = require('./lib/map_helpers');
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -63,6 +63,7 @@ app.use("/login", loginRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/createmap", mapRoutes(db));
 
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -73,8 +74,18 @@ app.get("/", (req, res) => {
   const maps = helpers.getMaps().then(result => {
     const templateVars = { maps: result}
     res.render("index", templateVars)
+    console.log(result)
   })
 });
+
+app.get("/:id", (req, res) => {
+  const mapId = req.params.id
+  const map = helpers.getMap(mapId).then(result => {
+    const templateVars = { map: result, mapId}
+    res.render("map", templateVars)
+  })
+});
+
 
 // maps route- needs to be relocated to a routing file
 app.get("/map", (req, res) => {
