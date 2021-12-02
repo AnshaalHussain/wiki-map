@@ -6,12 +6,22 @@
     <main>
       <h4>Profile</h4>
 
+      <% if (users) { %>
+        <p> Name: <%= users[0].name %> </p>
+        <p> Email: <%= users[0].email %> </p>
+      <% } %>
+
+
       <h4>Favorited Maps</h4>
 
-      <%= console.log(users) %> <% for (user of users) { %> <%= user.title %> <%
-      }; %>
+     <% if (users){ %>
+     <% for (user of users) { %>
+     <a href="#"> <%= user.title %> </a>
+      <% } %>
+      <% };%>
 
       <h4>Contributed To:</h4>
+      <%- include('partials/favourite'); %>
     </main>
   </body>
 
