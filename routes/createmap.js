@@ -16,6 +16,7 @@ router.use(cookieSession({
 module.exports = (db) => {
   // GET /creatmap/
   router.get("/", (req, res) => {
+
     res.render("createmap");
   });
 
