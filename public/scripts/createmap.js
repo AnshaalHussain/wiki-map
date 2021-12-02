@@ -7,46 +7,6 @@ $( document ).ready(function() {
     // Add a popup and marker to current location
     const map = addNewMap();
 
-    //Add marker/pointer to map
-    const markers = new L.MarkerClusterGroup();
-
-    //global variable for popup
-    const popup = L.popup();
-
-    // Popup on double click for user to add a new point to map
-    function onMapClick(e) {
-      const lat = e.latlng.lat;
-      const lng = e.latlng.lng;
-
-        popup
-        .setLatLng(e.latlng)
-        .setContent(`
-        <form method="POST" action="">
-        <div class="form-floating mb-3" style="min-width: 300px;">
-        <input type="hidden" name="lat" value="${lat}>
-        <input type="hidden" name="lng" value="${lng}>
-        </div>
-        <div class="form-floating mb-3" style="min-width: 300px;">
-        <input type="text" class="form-control form-control-sm" id="title" name="title">
-        <label for="title">Title</label>
-        </div>
-        <div class="form-floating mb-3" style="min-width: 300px;">
-        <input type="text" class="form-control form-control-sm" id="imageURL" name="imageURL">
-        <label for="imageURL">Image URL</label>
-        </div>
-        <div class="form-floating mb-3 style="min-width: 300px;"">
-        <textarea class="form-control form-control-sm" id="description" name="description"></textarea>
-        <label for="description">Description</label>
-        </div>
-        <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button">Add Point</button>
-        </div>
-        </form>
-        `)
-          .openOn(map);
-    }
-
-    map.on('click', onMapClick);
 
   }
 });

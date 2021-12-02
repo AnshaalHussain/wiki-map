@@ -50,10 +50,11 @@ $( document ).ready(function() {
           popup
           .setLatLng(e.latlng)
           .setContent(`
-          <form method="POST" action="">
+          <form id="add-point" method="POST" action="">
           <div class="form-floating mb-3" style="min-width: 300px;">
-          <input type="hidden" name="lat" value="${lat}>
-          <input type="hidden" name="lng" value="${lng}>
+          <input type="hidden" name="lat" value="${lat}">
+          <input type="hidden" name="lng" value="${lng}">
+          <input type="hidden" name="map_id" value="${mapId}">
           </div>
           <div class="form-floating mb-3" style="min-width: 300px;">
           <input type="text" class="form-control form-control-sm" id="title" name="title">
@@ -68,11 +69,31 @@ $( document ).ready(function() {
           <label for="description">Description</label>
           </div>
           <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button">Add Point</button>
+          <button class="btn btn-primary" type="submit">Add Point</button>
           </div>
           </form>
           `)
           .openOn(map);
+
+
+          $('#add-point').submit(function(event) {
+            //prevent the browser from refreshing
+            event.preventDefault();
+
+            console.log("inside submit add point")
+            $.ajax({
+              method: 'post',
+              //move to maps/id/pointid
+              url: '/addpoint',
+              data: $(this).serialize(),
+
+            })
+              .then((response) => {
+                console.log(response);
+
+              })
+          })
+
         }
 
         map.on('click', onMapClick);
@@ -88,7 +109,7 @@ function popupClick(e) {
 const addNewMap = function(lat, lng) {
   // Add map to current location
   console.log(lat + " " + lng);
-  const map = L.map('map').setView([lat, lng], 13);
+  const map = L.map('map').setView([lat, lng], 15);
   // Add map tiling
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
