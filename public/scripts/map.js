@@ -8,11 +8,35 @@ $( document ).ready(function() {
   const popup = L.popup();
 
   function onMapClick(e) {
-    console.log(popup
+    const lat = e.latlng.lat;
+    const lng = e.latlng.lng;
+
+    popup
       .setLatLng(e.latlng)
-      .setContent(`You clicked the map at ${e.latlng.toString()}
-      <button onclick="popupClick()">Click ME</button>`)
-      .openOn(map));
+      .setContent(`
+      <form method="POST" action="map/">
+      <div class="form-floating mb-3" style="min-width: 300px;">
+        <input type="hidden" name="lat" value="${lat}>
+        <input type="hidden" name="lng" value="${lng}>
+      </div>
+      <div class="form-floating mb-3" style="min-width: 300px;">
+        <input type="text" class="form-control form-control-sm" id="title" name="title">
+        <label for="title">Title</label>
+      </div>
+      <div class="form-floating mb-3" style="min-width: 300px;">
+        <input type="text" class="form-control form-control-sm" id="imageURL" name="imageURL">
+        <label for="imageURL">Image URL</label>
+      </div>
+      <div class="form-floating mb-3 style="min-width: 300px;"">
+        <textarea class="form-control form-control-sm" id="description" name="description"></textarea>
+        <label for="description">Description</label>
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="button">Add Point</button>
+      </div>
+      </form>
+      `)
+      .openOn(map);
   }
 
   map.on('dblclick', onMapClick);
@@ -29,7 +53,6 @@ const addNewMap = function() {
   const map = L.map('map').locate({
     setView: true,
     watch: true,
-    doubleClickZoom: false
   });
   // Add map tiling
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -47,7 +70,11 @@ const addNewMap = function() {
     // Remove the marker layer on search, only center the location
     console.log(e);
     map.removeLayer(e.target.markers[0]);
+    $("input#long").val(e.latlng.lng);
+    $("input#lat").val(e.latlng.lat);
   });
+
+  map.doubleClickZoom.disable();
 
   return map;
 };
