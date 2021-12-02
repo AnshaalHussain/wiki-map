@@ -16,8 +16,14 @@ $( document ).ready(function() {
   markers.addLayer(L.marker([43.6049592,-79.7538578]));
   // add more markers here...
 
+
   map.addLayer(markers);
 
+  markers.eachLayer((layer)=> {
+    if (layer._latlng.lat === 43.6049592 && layer._latlng.lng === -79.7538578) {
+      console.log(markers.removeLayer(layer));
+    }
+  });
   //global variable for popup
   const popup = L.popup();
 
@@ -29,7 +35,7 @@ $( document ).ready(function() {
     popup
       .setLatLng(e.latlng)
       .setContent(`
-      <form method="POST" action="map/">
+      <form method="POST" action="">
       <div class="form-floating mb-3" style="min-width: 300px;">
         <input type="hidden" name="lat" value="${lat}>
         <input type="hidden" name="lng" value="${lng}>
@@ -54,7 +60,7 @@ $( document ).ready(function() {
       .openOn(map);
   }
 
-  map.on('dblclick', onMapClick);
+  map.on('click', onMapClick);
 
 });
 
