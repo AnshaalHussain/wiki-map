@@ -1,74 +1,140 @@
 
 $( document ).ready(function() {
+  const mapId = $("#map").attr("data-map-id");
+  $.ajax({
+    url: `/map/${mapId}`,
+  }).done(function(response) {
+    renderMap(response.map, response.points);
 
-  // Add a popup and marker to current location
-  const map = addNewMap();
+  });
+  function renderMap(mapData, points) {
 
-  //Add marker/pointer to map
-  const markers = new L.MarkerClusterGroup();
+    $("#map-content").html(`
+        <h3 class="h3">${mapData.title}</h5>
+        <p class="">${mapData.description}</p>
+    `)
 
-  markers.addLayer(L.marker([43.5876884,-79.774823]).bindPopup(`
-  <h6>Title</h6>
-  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-  <img style="width: 150px;" src="https://picturesinlivingcolor.files.wordpress.com/2012/07/saturday-in-the-park-umbrella-people.jpg">
-  `));
-  markers.addLayer(L.marker([43.5952414,-79.7259424]));
-  markers.addLayer(L.marker([43.6049592,-79.7538578]));
-  // add more markers here...
+    $("#map-image").html(`
+      <hr>
+      <img src="${mapData.image_url}" class="img-fluid" alt="...">
+    `)
+    // Add a popup and marker to current location
+    const map = addNewMap(mapData.center_latitude, mapData.center_longitude);
 
-  map.addLayer(markers);
+    //Add marker/pointer to map
+    const markers = new L.MarkerClusterGroup();
 
-  //global variable for popup
-  const popup = L.popup();
+    // console.log("response", points)
 
-  // Popup on double click for user to add a new point to map
-  function onMapClick(e) {
-    const lat = e.latlng.lat;
-    const lng = e.latlng.lng;
 
-    popup
-      .setLatLng(e.latlng)
-      .setContent(`
-      <form method="POST" action="map/">
-      <div class="form-floating mb-3" style="min-width: 300px;">
-        <input type="hidden" name="lat" value="${lat}>
-        <input type="hidden" name="lng" value="${lng}>
-      </div>
-      <div class="form-floating mb-3" style="min-width: 300px;">
-        <input type="text" class="form-control form-control-sm" id="title" name="title">
-        <label for="title">Title</label>
-      </div>
-      <div class="form-floating mb-3" style="min-width: 300px;">
-        <input type="text" class="form-control form-control-sm" id="imageURL" name="imageURL">
-        <label for="imageURL">Image URL</label>
-      </div>
-      <div class="form-floating mb-3 style="min-width: 300px;"">
-        <textarea class="form-control form-control-sm" id="description" name="description"></textarea>
-        <label for="description">Description</label>
-      </div>
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button">Add Point</button>
-      </div>
-      </form>
-      `)
-      .openOn(map);
-  }
+    for (const point of points) {
+    const { title, description, image, latitude, longitude } = point
+    console.log(point)
+      markers.addLayer(L.marker([latitude, longitude]).bindPopup(`
+    <h6>${title}</h6>
+    <p>${description}</p>
+    <img style="width: 150px;" src="${image}">
+    <button id="edit-btn" class="btn btn-primary" data-point-id="${ point.id }" type="button">Edit</button>
+    <button id="delete-btn" class="btn btn-primary"  data-point-id="${ point.id }" type="button">Delete</button>
 
-  map.on('dblclick', onMapClick);
+    `));
 
-});
+    }
+
+
+
+
+    map.addLayer(markers);
+
+
+
+
+    // markers.eachLayer((layer)=> {
+      //   if (layer._latlng.lat === 43.6049592 && layer._latlng.lng === -79.7538578) {
+        //     console.log(markers.removeLayer(layer));
+        //   }
+        // });
+        //global variable for popup
+        const popup = L.popup();
+
+        // Popup on double click for user to add a new point to map
+        function onMapClick(e) {
+          const lat = e.latlng.lat;
+          const lng = e.latlng.lng;
+
+          popup
+          .setLatLng(e.latlng)
+          .setContent(`
+          <form id="add-point" method="POST" action="">
+          <div class="form-floating mb-3" style="min-width: 300px;">
+          <input type="hidden" name="lat" value="${lat}">
+          <input type="hidden" name="lng" value="${lng}">
+          <input type="hidden" name="map_id" value="${mapId}">
+          </div>
+          <div class="form-floating mb-3" style="min-width: 300px;">
+          <input type="text" class="form-control form-control-sm" id="title" name="title">
+          <label for="title">Title</label>
+          </div>
+          <div class="form-floating mb-3" style="min-width: 300px;">
+          <input type="text" class="form-control form-control-sm" id="imageURL" name="imageURL">
+          <label for="imageURL">Image URL</label>
+          </div>
+          <div class="form-floating mb-3 style="min-width: 300px;"">
+          <textarea class="form-control form-control-sm" id="description" name="description"></textarea>
+          <label for="description">Description</label>
+          </div>
+          <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="submit">Add Point</button>
+          </div>
+          </form>
+          `)
+          .openOn(map);
+
+
+
+
+          $('#add-point').submit(function(event) {
+            //prevent the browser from refreshing
+            event.preventDefault();
+            popup.closePopup()
+            $.ajax({
+              method: 'post',
+              //move to maps/id/pointid
+              url: '/addpoint',
+              data: $(this).serialize(),
+
+            })
+              .then((response) => {
+              const point = response;
+
+              markers.addLayer(L.marker([point.latitude, point.longitude]).bindPopup(`
+              <h6>${point.title}</h6>
+              <p>${point.description}</p>
+              <img style="width: 150px;" src="${point.image}">
+              `))
+
+
+              })
+          })
+
+
+
+        }
+
+        map.on('click', onMapClick);
+
+      }
+  });
 
 function popupClick(e) {
   console.log(e);
   alert("hello");
 }
 
-const addNewMap = function() {
+const addNewMap = function(lat, lng) {
   // Add map to current location
-  const map = L.map('map').locate({
-    setView: true,
-    watch: true,
-  });
+  console.log(lat + " " + lng);
+  const map = L.map('map').setView([lat, lng], 15);
   // Add map tiling
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

@@ -52,7 +52,11 @@ const loginRoutes = require("./routes/login");
 const registerRoutes = require("./routes/register");
 const mapRoutes = require("./routes/createmap");
 const profileRoutes = require("./routes/profile");
+<<<<<<< HEAD
 const favoriteRoutes = require("./routes/favorite");
+=======
+const addPointRoutes = require("./routes/addPoint");
+>>>>>>> 53dee0e59cbbcfe791fc5b5bc89a23ecc98ae7c5
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -65,7 +69,11 @@ app.use("/login", loginRoutes(db));
 app.use("/register", registerRoutes(db));
 app.use("/createmap", mapRoutes(db));
 app.use("/profile", profileRoutes(db));
+<<<<<<< HEAD
 app.use("/favorite", favoriteRoutes(db));
+=======
+app.use("/addpoint", addPointRoutes(db));
+>>>>>>> 53dee0e59cbbcfe791fc5b5bc89a23ecc98ae7c5
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -76,17 +84,44 @@ app.get("/", (req, res) => {
   const maps = helpers.getMaps().then(result => {
     const templateVars = { maps: result}
     res.render("index", templateVars)
-    console.log(result)
+
   })
 });
 
-app.get("/:id", (req, res) => {
-  const mapId = req.params.id
-  const map = helpers.getMap(mapId).then(result => {
-    const templateVars = { map: result, mapId}
-    res.render("map", templateVars)
+app.get("/map/:id", (req, res) => {
+  const mapId = req.params.id;
+  const data = { mapId }
+  helpers.getMap(mapId).then(result => {
+    // send json instead of render
+    data.map = result;
+    // res.render("map", templateVars)
   })
+  .then(helpers.getPointbyMapId(mapId).then(points => {
+    data.points = points;
+    res.send(data);
+  }))
 });
+
+app.get("/editpoint", (req, res) => {
+  const mapId = req.params.id;
+  const data = { mapId }
+  helpers.getMap(mapId).then(result => {
+    // send json instead of render
+    data.map = result;
+    // res.render("map", templateVars)
+  })
+  .then(helpers.getPointbyMapId(mapId).then(points => {
+    data.points = points;
+    res.send(data);
+  }))
+});
+
+
+
+app.get("/map/view/:id", (req,res) => {
+  const mapId = req.params.id
+  res.render("map", {mapId});
+})
 
 
 // maps route- needs to be relocated to a routing file
