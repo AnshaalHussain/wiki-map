@@ -4,9 +4,11 @@ $( document ).ready(function() {
   $.ajax({
     url: `/map/${mapId}`,
   }).done(function(response) {
-    renderMap(response.map);
+    renderMap(response.map, response.points);
+
   });
-  function renderMap(mapData) {
+  function renderMap(mapData, points) {
+
     $("#map-content").html(`
         <h3 class="h3">${mapData.title}</h5>
         <p class="">${mapData.description}</p>
@@ -22,14 +24,26 @@ $( document ).ready(function() {
     //Add marker/pointer to map
     const markers = new L.MarkerClusterGroup();
 
-    markers.addLayer(L.marker([43.5876884,-79.774823]).bindPopup(`
-    <h6>Title</h6>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-    <img style="width: 150px;" src="https://picturesinlivingcolor.files.wordpress.com/2012/07/saturday-in-the-park-umbrella-people.jpg">
+    // console.log("response", points)
+
+
+    for (const point of points) {
+    const { title, description, image, latitude, longitude } = point
+      markers.addLayer(L.marker([latitude, longitude]).bindPopup(`
+    <h6>${title}</h6>
+    <p>${description}</p>
+    <img style="width: 150px;" src="${image}">
     `));
-    markers.addLayer(L.marker([43.5952414,-79.7259424]));
-    markers.addLayer(L.marker([43.6049592,-79.7538578]));
-    // add more markers here...
+    }
+
+    // markers.addLayer(L.marker([43.5876884,-79.774823]).bindPopup(`
+    // <h6>Title</h6>
+    // <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+    // <img style="width: 150px;" src="https://picturesinlivingcolor.files.wordpress.com/2012/07/saturday-in-the-park-umbrella-people.jpg">
+    // `));
+    // markers.addLayer(L.marker([43.5952414,-79.7259424]));
+    // markers.addLayer(L.marker([43.6049592,-79.7538578]));
+    // // add more markers here...
 
 
     map.addLayer(markers);
@@ -76,11 +90,12 @@ $( document ).ready(function() {
           .openOn(map);
 
 
+
+
           $('#add-point').submit(function(event) {
             //prevent the browser from refreshing
             event.preventDefault();
-
-            console.log("inside submit add point")
+            popup.closePopup()
             $.ajax({
               method: 'post',
               //move to maps/id/pointid
@@ -89,7 +104,14 @@ $( document ).ready(function() {
 
             })
               .then((response) => {
-                console.log(response);
+              const point = response;
+
+              markers.addLayer(L.marker([point.latitude, point.longitude]).bindPopup(`
+              <h6>${point.title}</h6>
+              <p>${point.description}</p>
+              <img style="width: 150px;" src="${point.image}">
+              `))
+
 
               })
           })

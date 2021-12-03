@@ -21,11 +21,10 @@ module.exports = (db) => {
   const point = req.body
   const userId = req.session.userId;
   const pointVal = {...point, user_id: userId};
-  console.log(pointVal)
   //need to add the point data into the function
   helpers.addPoint(pointVal)
     .then(point => {
-      console.log("inside post request --- point added", point)
+
         res.json(point);
 
     })

@@ -76,18 +76,22 @@ app.get("/", (req, res) => {
   const maps = helpers.getMaps().then(result => {
     const templateVars = { maps: result}
     res.render("index", templateVars)
-    console.log(result)
+
   })
 });
 
 app.get("/map/:id", (req, res) => {
   const mapId = req.params.id;
-  const map = helpers.getMap(mapId).then(result => {
-    const data = { map: result, mapId}
+  const data = { mapId }
+  helpers.getMap(mapId).then(result => {
     // send json instead of render
-    res.send(data);
+    data.map = result;
     // res.render("map", templateVars)
   })
+  .then(helpers.getPointbyMapId(mapId).then(points => {
+    data.points = points;
+    res.send(data);
+  }))
 });
 
 app.get("/map/view/:id", (req,res) => {
