@@ -14,14 +14,31 @@
 
       <h4>Favorited Maps</h4>
 
-     <% if (users){ %>
-     <% for (user of users) { %>
-     <a href="#"> <%= user.title %> </a>
-      <% } %>
-      <% };%>
+      <ul>
+        <% if (users){ %>
+          <% for (user of users) { %>
+            <li>
+              <a href="#"> <%= user.title %> </a>
+            </li>
 
-      <h4>Contributed To:</h4>
-      <%- include('partials/favorite'); %>
+           <% } %>
+           <% };%>
+      </ul>
+
+
+    <h4>Contributed To:</h4>
+
+    <ul>
+      <% if (contributed){ %>
+        <% for (map of contributed) { %>
+          <li>
+            <a href="#"> <%= map.title %> </a>
+          </li>
+
+        <% } %>
+        <% };%>
+    </ul>
+
     </main>
   </body>
 

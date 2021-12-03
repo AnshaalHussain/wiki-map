@@ -27,7 +27,8 @@ module.exports = (db) => {
     const map = req.body;
     const userId = req.session.userId;
     if(!userId) {
-      alert("log in before creating a map");
+      //alert("log in before creating a map");
+      res.status(400).send({ message: 'User must be logged in before creating a map!' });
       res.redirect("/")
     }
     helpers.createNewMap(map)
