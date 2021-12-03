@@ -33,7 +33,7 @@ $( document ).ready(function() {
       markers.addLayer(L.marker([latitude, longitude]).bindPopup(`
     <h6>${title}</h6>
     <p>${description}</p>
-    <img style="width: 150px;" src="${image}">
+    <img class="img-thumbnail" src="${image}">
     <button id="edit-btn" class="btn btn-primary" data-point-id="${ point.id }" type="button">Edit</button>
     <button id="delete-btn" class="btn btn-primary"  data-point-id="${ point.id }" type="button">Delete</button>
 

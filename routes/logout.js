@@ -12,7 +12,7 @@ module.exports = function(db) {
 
   router.post('/logout', (req, res) => {
     req.session.userId = null;
-    res.send({});
+    res.redirect("/");
   });
 
   return router;

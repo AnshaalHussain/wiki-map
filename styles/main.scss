@@ -82,7 +82,13 @@ body {
   }
   .container {
     margin-top: 3%;
+    text-align: center;
   }
+
+  a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
 }
 
 
