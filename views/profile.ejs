@@ -3,7 +3,7 @@
   <%- include('partials/header'); %>
 
   <body>
-    <main>
+    <main class="profile">
       <h4>Profile</h4>
 
       <% if (users) { %>
@@ -14,30 +14,45 @@
 
       <h4>Favorited Maps</h4>
 
-      <ul>
+      <div class="profile-card">
         <% if (users){ %>
           <% for (user of users) { %>
-            <li>
-              <a href="#"> <%= user.title %> </a>
-            </li>
 
+              <a class="link" href="map/view/<%= user.id %>">
+
+            <div class="map-col ">
+                <div class="card fav-card" >
+                  <img src="<%= user.image_url %>" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title"><%=user.title%></h5>
+                    </div>
+                  </div>
+                  </a>
+                </div>
            <% } %>
            <% };%>
-      </ul>
+       </div>
 
 
     <h4>Contributed To:</h4>
 
-    <ul>
+    <div>
       <% if (contributed){ %>
         <% for (map of contributed) { %>
-          <li>
-            <a href="#"> <%= map.title %> </a>
-          </li>
 
+          <a class="link" href="map/view/<%= map.id %>">
+          <div class="map-col">
+            <div class="card fav-card" >
+              <img src="<%= map.image_url %>" alt="...">
+              <div class="card-body">
+                <h5 class="card-title"><%=map.title%></h5>
+                </div>
+              </div>
+              </a>
+            </div>
         <% } %>
         <% };%>
-    </ul>
+          </div>
 
     </main>
   </body>

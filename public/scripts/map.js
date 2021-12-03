@@ -134,7 +134,7 @@ function popupClick(e) {
 const addNewMap = function(lat, lng) {
   // Add map to current location
   console.log(lat + " " + lng);
-  const map = L.map('map').setView([lat, lng], 10);
+  const map = L.map('map').setView([lat, lng], 12);
   // Add map tiling
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

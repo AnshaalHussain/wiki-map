@@ -32,6 +32,16 @@ body {
     text-align: center;
     }
 
+    .profile {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-block: auto;
+      width: 100%;
+      text-align: center;
+      }
+
   .map_form {
     margin-top: 5%;
     margin: auto;
@@ -89,6 +99,23 @@ body {
     text-decoration: none;
     color: inherit;
 }
+
+  h4 {
+    margin-top: 2rem;
+  }
+
+  .fav-card {
+    margin: 0 auto;
+  }
+
+  .profile-card {
+    margin-top: 5%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
 }
 
 
