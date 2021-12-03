@@ -94,6 +94,22 @@ app.get("/map/:id", (req, res) => {
   }))
 });
 
+app.get("/editpoint", (req, res) => {
+  const mapId = req.params.id;
+  const data = { mapId }
+  helpers.getMap(mapId).then(result => {
+    // send json instead of render
+    data.map = result;
+    // res.render("map", templateVars)
+  })
+  .then(helpers.getPointbyMapId(mapId).then(points => {
+    data.points = points;
+    res.send(data);
+  }))
+});
+
+
+
 app.get("/map/view/:id", (req,res) => {
   const mapId = req.params.id
   res.render("map", {mapId});

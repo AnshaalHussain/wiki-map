@@ -29,24 +29,25 @@ $( document ).ready(function() {
 
     for (const point of points) {
     const { title, description, image, latitude, longitude } = point
+    console.log(point)
       markers.addLayer(L.marker([latitude, longitude]).bindPopup(`
     <h6>${title}</h6>
     <p>${description}</p>
     <img style="width: 150px;" src="${image}">
+    <button id="edit-btn" class="btn btn-primary" data-point-id="${ point.id }" type="button">Edit</button>
+    <button id="delete-btn" class="btn btn-primary"  data-point-id="${ point.id }" type="button">Delete</button>
+
     `));
+
     }
 
-    // markers.addLayer(L.marker([43.5876884,-79.774823]).bindPopup(`
-    // <h6>Title</h6>
-    // <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-    // <img style="width: 150px;" src="https://picturesinlivingcolor.files.wordpress.com/2012/07/saturday-in-the-park-umbrella-people.jpg">
-    // `));
-    // markers.addLayer(L.marker([43.5952414,-79.7259424]));
-    // markers.addLayer(L.marker([43.6049592,-79.7538578]));
-    // // add more markers here...
+
 
 
     map.addLayer(markers);
+
+
+
 
     // markers.eachLayer((layer)=> {
       //   if (layer._latlng.lat === 43.6049592 && layer._latlng.lng === -79.7538578) {
@@ -115,6 +116,8 @@ $( document ).ready(function() {
 
               })
           })
+
+
 
         }
 
