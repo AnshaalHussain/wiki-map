@@ -10,5 +10,3 @@ CREATE TABLE maps (
   center_longitude DOUBLE PRECISION,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
-
-
